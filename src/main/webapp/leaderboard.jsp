@@ -18,5 +18,8 @@
         <li>person</li>
     </c:forEach>
 </ol>
+<form action="index.jsp" method="post">
+    <input type="submit" name="button" value="Go to home">
+</form>
 </body>
 </html>

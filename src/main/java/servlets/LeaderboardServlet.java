@@ -33,7 +33,9 @@ public class LeaderboardServlet extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        File fXmlFile = new File("D:\\Temp\\Studia\\javaprojectwww\\src\\main\\resources\\leaderboard.xml");
+//        File fXmlFile = new File("D:\\Temp\\Studia\\javaprojectwww\\src\\main\\resources\\leaderboard.xml");
+        File fXmlFile = new File("/home/exomat/Pulpit/javaproject/src/main/resources/leaderboard.xml");
+//        File fXmlFile = new File("D:\\Temp\\Studia\\javaprojectwww\\src\\main\\resources\\leaderboard.xml");
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = null;
         List<Vector> leaderboardUsers = new ArrayList<>();
