@@ -15,7 +15,7 @@
 <h2>Leaderboard</h2>
 <ol>
     <c:forEach var="person" items="${applicationScope.leaderboardList}">
-        <li>person</li>
+        <li>Name:${person.get(0)} Points:${person.get(1)}</li>
     </c:forEach>
 </ol>
 </body>

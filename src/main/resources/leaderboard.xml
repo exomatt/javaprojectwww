@@ -2,10 +2,18 @@
 <leaderboard xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="leaderboard.xsd">
     <user>
         <name>Lol</name>
-        <points>9</points>
+        <points>2</points>
     </user>
     <user>
-        <name>Strawberries</name>
-        <points>4</points>
+        <name>Admin</name>
+        <points>1</points>
+    </user>
+    <user>
+        <name>Test</name>
+        <points>19</points>
+    </user>
+    <user>
+        <name>ABC</name>
+        <points>0</points>
     </user>
 </leaderboard>

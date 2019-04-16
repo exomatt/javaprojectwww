@@ -19,9 +19,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
+import java.util.*;
 
 @Log
 @WebServlet(name = "LeaderboardServlet", urlPatterns = "/leaderboard")
@@ -53,6 +51,8 @@ public class LeaderboardServlet extends HttpServlet {
                 leaderboardUsers.add(user);
             }
             ServletContext sc = this.getServletContext();
+            leaderboardUsers.sort(Comparator.comparingInt(o -> Integer.parseInt((String) o.get(1))));
+            Collections.reverse(leaderboardUsers);
             synchronized (getServletContext()) {
                 sc.setAttribute("leaderboardList", leaderboardUsers);
             }
