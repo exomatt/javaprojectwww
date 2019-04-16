@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<leaderboard xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="leaderboard.xsd">
+    <user>
+        <name>Lol</name>
+        <points>9</points>
+    </user>
+    <user>
+        <name>Strawberries</name>
+        <points>4</points>
+    </user>
+</leaderboard>
