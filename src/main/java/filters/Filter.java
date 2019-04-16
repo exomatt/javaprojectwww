@@ -20,12 +20,11 @@ public class Filter implements javax.servlet.Filter {
             response.sendRedirect("index.jsp");
         String login = (String) session.getAttribute("login");
         if (login == null) {
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("index.jsp");
         } else {
-            if (!login.equals("admin"))
-                response.sendRedirect("/game");
-            else response.sendRedirect("/admin");
-            ;
+            if (login.equals("admin"))
+                response.sendRedirect("/admin");
+            else chain.doFilter(req, resp);
         }
     }
 
