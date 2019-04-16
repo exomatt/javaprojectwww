@@ -14,11 +14,11 @@
 </head>
 <body>
 <p>Your result!</p>
-<p>Lifes: ${sessionScope["lifes"]}</p>
+<p>Lives: ${sessionScope["lives"]}</p>
 <p>Points: ${sessionScope["points"]}</p>
 <form action="result" method="post">
     <input type="submit" name="continue" value="Continue game">
-    <input type="submit" name="return" value="Return to leader board">
+    <input type="submit" name="return" value="Return to leaderboard">
 </form>
 </body>
 </html>

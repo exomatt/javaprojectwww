@@ -16,9 +16,12 @@ public class GameServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
+        Integer lives;
+        String word;
+        String wordMask;
         synchronized (session) {
-            String word = (String) session.getAttribute("word");
-            String wordMask = (String) session.getAttribute("wordMask");
+            word = (String) session.getAttribute("word");
+            wordMask = (String) session.getAttribute("wordMask");
             String letter = (String) request.getParameter("letter");
             boolean rightAnswer = false;
             if (letter.length() == word.length()) {
@@ -40,22 +43,24 @@ public class GameServlet extends HttpServlet {
             if (word.equals(wordMask.replaceAll("\\s", ""))) {
                 session.setAttribute("wordMask", word);
             }
-            Integer lives = (Integer) session.getAttribute("lives");
+            lives = (Integer) session.getAttribute("lives");
             Integer points = (Integer) session.getAttribute("points");
             if (!rightAnswer) {
                 lives--;
                 session.setAttribute("lives", lives);
-                if (lives == 0) {
-                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("result.jsp");
-                    requestDispatcher.forward(request, response);
-                }
+
             } else {
                 points++;
                 session.setAttribute("points", points);
             }
         }
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("game.jsp");
-        requestDispatcher.forward(request, response);
+        if (lives == 0 || word.equals(wordMask.replaceAll("\\s", ""))) {
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("result.jsp");
+            requestDispatcher.forward(request, response);
+        }else {
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("game.jsp");
+            requestDispatcher.forward(request, response);
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
