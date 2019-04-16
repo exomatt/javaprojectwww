@@ -34,8 +34,7 @@ public class LoginServlet extends HttpServlet {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
             requestDispatcher.forward(request, response);
         }
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("game.jsp");
-        requestDispatcher.forward(request, response);
+        response.sendRedirect("game");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
