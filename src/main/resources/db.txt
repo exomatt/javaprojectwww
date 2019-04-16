@@ -1,0 +1,4 @@
+pl,kot
+eng,cat
+pl,pies
+eng,dog
