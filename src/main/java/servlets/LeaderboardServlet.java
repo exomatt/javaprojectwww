@@ -75,8 +75,12 @@ public class LeaderboardServlet extends HttpServlet {
             Element rootElement = (Element) doc.getElementsByTagName(
                     "leaderboard").item(0);
             Element newUser = doc.createElement("user");
-            newUser.appendChild(doc.createTextNode((String) session.getAttribute("login")));
-            newUser.appendChild(doc.createTextNode((String) session.getAttribute("points")));
+            Element newUserName = doc.createElement("name");
+            Element newUserPoints = doc.createElement("points");
+            newUserName.appendChild(doc.createTextNode((String) session.getAttribute("login")));
+            newUserPoints.appendChild(doc.createTextNode((String) session.getAttribute("points")));
+            newUser.appendChild(newUserName);
+            newUser.appendChild(newUserPoints);
             rootElement.appendChild(newUser);
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
