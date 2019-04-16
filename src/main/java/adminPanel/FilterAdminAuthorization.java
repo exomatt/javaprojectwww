@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(filterName = "FilterAdminAuthorization")
+@WebFilter(filterName = "FilterAdminAuthorization", urlPatterns = "/admin")
 public class FilterAdminAuthorization implements Filter {
     public void destroy() {
     }
@@ -16,7 +16,6 @@ public class FilterAdminAuthorization implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
         String login = null;
-        boolean isLogged = false;
         HttpSession session = request.getSession();
         synchronized (session) {
             login = (String) session.getAttribute("login");
