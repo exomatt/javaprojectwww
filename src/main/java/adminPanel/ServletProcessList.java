@@ -16,10 +16,10 @@ public class ServletProcessList extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter("updateButton") != null) {
             String word = request.getParameter("selected");
-            FileManager.getWordDetails(word);
+            String[] wordDetails = FileManager.getWordDetails(word);
             HttpSession session = request.getSession();
             synchronized (session) {
-                session.setAttribute("wordToUpdate", word);
+                session.setAttribute("wordToUpdate", wordDetails);
             }
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("updateWord.jsp");
             requestDispatcher.forward(request, response);
