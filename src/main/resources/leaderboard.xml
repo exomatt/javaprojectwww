@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <leaderboard xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="leaderboard.xsd">
     <user>
         <name>Lol</name>
@@ -12,8 +12,13 @@
         <name>Test</name>
         <points>19</points>
     </user>
+
     <user>
-        <name>ABC</name>
+        <name>a</name>
+        <points>0</points>
+    </user>
+    <user>
+        <name>a</name>
         <points>0</points>
     </user>
 </leaderboard>

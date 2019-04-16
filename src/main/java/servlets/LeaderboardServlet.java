@@ -37,8 +37,8 @@ public class LeaderboardServlet extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        File fXmlFile = new File("D:\\Temp\\Studia\\javaprojectwww\\src\\main\\resources\\leaderboard.xml");
-//        File fXmlFile = new File("/home/exomat/Pulpit/javaproject/src/main/resources/leaderboard.xml");
+//        File fXmlFile = new File("D:\\Temp\\Studia\\javaprojectwww\\src\\main\\resources\\leaderboard.xml");
+        File fXmlFile = new File("/home/exomat/Pulpit/javaproject/src/main/resources/leaderboard.xml");
 //        File fXmlFile = new File("D:\\Temp\\Studia\\javaprojectwww\\src\\main\\resources\\leaderboard.xml");
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = null;
@@ -78,7 +78,7 @@ public class LeaderboardServlet extends HttpServlet {
             Element newUserName = doc.createElement("name");
             Element newUserPoints = doc.createElement("points");
             newUserName.appendChild(doc.createTextNode((String) session.getAttribute("login")));
-            newUserPoints.appendChild(doc.createTextNode((String) session.getAttribute("points")));
+            newUserPoints.appendChild(doc.createTextNode((String.valueOf(session.getAttribute("points")))));
             newUser.appendChild(newUserName);
             newUser.appendChild(newUserPoints);
             rootElement.appendChild(newUser);
@@ -90,7 +90,7 @@ public class LeaderboardServlet extends HttpServlet {
 
             Vector newUserVector = new Vector();
             newUserVector.add(session.getAttribute("login"));
-            newUserVector.add((int) session.getAttribute("points"));
+            newUserVector.add(String.valueOf(session.getAttribute("points")));
             ServletContext sc = this.getServletContext();
             leaderboardUsers.add(newUserVector);
             leaderboardUsers.sort(Comparator.comparingInt(o -> Integer.parseInt((String) o.get(1))));
@@ -103,7 +103,7 @@ public class LeaderboardServlet extends HttpServlet {
         }
 
         session.setAttribute("points", 0);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("leaderboard");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("leaderboard.jsp");
         requestDispatcher.forward(request, response);
     }
 
