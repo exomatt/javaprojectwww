@@ -87,6 +87,7 @@ public class LeaderboardServlet extends HttpServlet {
             e.printStackTrace();
         }
 
+        session.setAttribute("points", 0);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("leaderboard.jsp");
         requestDispatcher.forward(request, response);
     }
