@@ -1,5 +1,8 @@
 package servlets;
 
+import models.User;
+import repo.UserRepo;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
@@ -10,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(name = "LoginServlet", urlPatterns = "/login", initParams = {@WebInitParam(name = "admin", value = "admin"), @WebInitParam(name = "test", value = "test")})
+@WebServlet(name = "LoginServlet", urlPatterns = "/login", initParams = {@WebInitParam(name = "login", value = "admin"), @WebInitParam(name = "password", value = "admin")})
 public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
@@ -19,16 +22,25 @@ public class LoginServlet extends HttpServlet {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
             requestDispatcher.forward(request, response);
         }
-        String admin = getInitParameter("admin");
-        String test = getInitParameter("test");
+        String login = getInitParameter("login");
+        String adminpass = getInitParameter("password");
         HttpSession session = request.getSession();
-        if (username.equals("admin") && password.equals(admin)) {
+        UserRepo userRepo = new UserRepo();
+        User byUsername = userRepo.getByUsername(username);
+        if (byUsername != null) {
+            if (byUsername.getPassword().equals(password)) {
+                synchronized (session) {
+                    session.setAttribute("login", username);
+                }
+                response.sendRedirect("game");
+                return;
+            } else {
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
+                requestDispatcher.forward(request, response);
+            }
+        } else if (username.equals(login) && password.equals(adminpass)) {
             synchronized (session) {
                 session.setAttribute("login", "admin");
-            }
-        } else if (username.equals("test") && password.equals(test)) {
-            synchronized (session) {
-                session.setAttribute("login", "test");
             }
         } else {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");

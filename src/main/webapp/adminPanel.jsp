@@ -9,10 +9,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>AdminPanel</title>
+    <title>Admin Panel</title>
 </head>
 <body>
-<form action="admin/process" method="post">
+<form action="process" method="post">
     <table>
         <c:forEach var="word" items="${sessionScope.listOfWords}">
             <tr>
@@ -27,7 +27,7 @@
     <input type="submit" name="updateButton" value="Update Checked">
 </form>
 <form><input type="button"
-             onclick="window.location.href = 'http://localhost:8080/testjava_war_exploded/admin/addNewWordk';"
+             onclick="window.location.href = 'http://localhost:8080/javaproject_war_exploded/addNewWord';"
              value="Add New Word"></form>
 
 
