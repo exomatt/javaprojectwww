@@ -30,6 +30,8 @@
              onclick="window.location.href = 'http://localhost:8080/javaproject_war_exploded/addNewWord';"
              value="Add New Word"></form>
 
-
+<form action="game" method="get">
+    <input type="submit" value="Go to game">
+</form>
 </body>
 </html>

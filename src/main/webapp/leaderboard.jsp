@@ -18,5 +18,8 @@
         <li>Name:${person.get(0)} Points:${person.get(1)}</li>
     </c:forEach>
 </ol>
+<form action="index.jsp" method="post">
+    <input type="submit" name="button" value="Go to home">
+</form>
 </body>
 </html>

@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page session="true" %>
 <html>
 <head>
     <title>Hangman</title>
@@ -18,5 +20,11 @@
         <input type="text" name="letter">
         <input type="submit" value="Check">
     </form>
+
+    <c:if test="${sessionScope['login'] eq 'admin'}">
+        <form action="admin" method="post">
+            <input type="submit" name="button" value="Go to admin panel">
+        </form>
+    </c:if>
 </body>
 </html>

@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(filterName = "Filter", urlPatterns = {"/game"})
+@WebFilter(filterName = "Filter", urlPatterns = {"/game", "/result"})
 public class Filter implements javax.servlet.Filter {
     public void destroy() {
     }
@@ -24,7 +24,6 @@ public class Filter implements javax.servlet.Filter {
         } else {
             if (!login.equals("admin"))
                 chain.doFilter(req, resp);
-            else chain.doFilter(req, resp);//todo zmienic na amidna jak juz bedzie
         }
     }
 

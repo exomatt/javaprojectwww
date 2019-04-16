@@ -9,8 +9,7 @@
     <input type="radio" name="language" value="ENG"><label>ENG</label><br>
     <input type="submit" name="choose" value="Choose">
 </form>
-<form action="leaderboard" method="post">
-
+<form action="leaderboard" method="get">
     <input type="submit" name="button" value="Go to leader board">
 </form>
 </body>
