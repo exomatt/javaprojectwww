@@ -17,7 +17,7 @@ public class ResultServlet extends HttpServlet {
             int lifes = (int) session.getAttribute("lives");
             if (lifes == 0) {
                 synchronized (session) {
-                    session.removeAttribute("points");
+                    session.removeAttribute("lives");
                 }
             }
             response.sendRedirect("game");
@@ -25,7 +25,6 @@ public class ResultServlet extends HttpServlet {
         }
         if (request.getParameter("return") != null) {
             synchronized (session) {
-                session.removeAttribute("points");
                 session.removeAttribute("lives");
             }
             response.sendRedirect("leaderboard");
