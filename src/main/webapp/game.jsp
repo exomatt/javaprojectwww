@@ -12,7 +12,7 @@
 </head>
 <body>
     <h2>${sessionScope.wordMask}</h2>
-    <p>Lifes: ${sessionScope.lifes}</p>
+    <p>Lifes: ${sessionScope.lives}</p>
     <p>Points: ${sessionScope.points}</p>
     <form action="game" method="post">
         <input type="text" name="letter">

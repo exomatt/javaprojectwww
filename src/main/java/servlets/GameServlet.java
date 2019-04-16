@@ -26,22 +26,29 @@ public class GameServlet extends HttpServlet {
                     rightAnswer = true;
                     session.setAttribute("wordMask", word);
                 }
-            } else if (letter.length() == 1) {
+            } else if (letter.length() >= 1) {
                 StringBuilder updatedWordMask = new StringBuilder(wordMask);
                 for (int i = 0; i < word.length(); i++) {
                     if (word.charAt(i) == letter.charAt(0)) {
                         rightAnswer = true;
-                        updatedWordMask.setCharAt(i*2, word.charAt(i));
+                        updatedWordMask.setCharAt(i * 2, word.charAt(i));
                     }
                 }
                 session.setAttribute("wordMask", updatedWordMask.toString());
             }
-
-            Integer lifes = (Integer) session.getAttribute("lifes");
+            wordMask = (String) session.getAttribute("wordMask");
+            if (word.equals(wordMask.replaceAll("\\s", ""))) {
+                session.setAttribute("wordMask", word);
+            }
+            Integer lives = (Integer) session.getAttribute("lives");
             Integer points = (Integer) session.getAttribute("points");
             if (!rightAnswer) {
-                lifes--;
-                session.setAttribute("lifes", lifes);
+                lives--;
+                session.setAttribute("lives", lives);
+                if (lives == 0) {
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("result.jsp");
+                    requestDispatcher.forward(request, response);
+                }
             } else {
                 points++;
                 session.setAttribute("points", points);
@@ -64,10 +71,12 @@ public class GameServlet extends HttpServlet {
             session.setAttribute("word", word);
             session.setAttribute("wordMask", wordMask);
 
-            Integer lifes = 9;
-            session.setAttribute("lifes", lifes);
-            Integer points = 0;
-            session.setAttribute("points", points);
+            Integer lives = 9;
+            session.setAttribute("lives", lives);
+            if (session.getAttribute("points") == null) {
+                Integer points = 0;
+                session.setAttribute("points", points);
+            }
         }
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("game.jsp");
         requestDispatcher.forward(request, response);
