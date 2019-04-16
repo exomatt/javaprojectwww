@@ -24,7 +24,6 @@ public class Filter implements javax.servlet.Filter {
         } else {
             if (!login.equals("admin"))
                 chain.doFilter(req, resp);
-            else chain.doFilter(req, resp);//todo zmienic na amidna jak juz bedzie
         }
     }
 
