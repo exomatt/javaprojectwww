@@ -22,9 +22,9 @@ public class Filter implements javax.servlet.Filter {
         if (login == null) {
             response.sendRedirect("index.jsp");
         } else {
-            if (login.equals("admin") || login.equals("test"))
+            if (!login.equals("admin"))
                 chain.doFilter(req, resp);
-            else response.sendRedirect("index.jsp");
+            else chain.doFilter(req, resp);//todo zmienic na amidna jak juz bedzie
         }
     }
 
