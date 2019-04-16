@@ -12,7 +12,7 @@
     <title>AdminPanel</title>
 </head>
 <body>
-<form action="processListOfWords" method="post">
+<form action="admin/process" method="post">
     <table>
         <c:forEach var="word" items="${sessionScope.listOfWords}">
             <tr>
@@ -26,6 +26,10 @@
     <input type="submit" name="deleteButton" value="Delete Checked">
     <input type="submit" name="updateButton" value="Update Checked">
 </form>
+<form><input type="button"
+             onclick="window.location.href = 'http://localhost:8080/testjava_war_exploded/admin/addNewWordk';"
+             value="Add New Word"></form>
+
 
 </body>
 </html>
