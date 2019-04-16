@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -31,15 +32,22 @@ public class LeaderboardServlet extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-//        File fXmlFile = new File("D:\\Temp\\Studia\\javaprojectwww\\src\\main\\resources\\leaderboard.xml");
-        File fXmlFile = new File("/home/exomat/Pulpit/javaproject/src/main/resources/leaderboard.xml");
+        File fXmlFile = new File("D:\\Temp\\Studia\\javaprojectwww\\src\\main\\resources\\leaderboard.xml");
+//        File fXmlFile = new File("/home/exomat/Pulpit/javaproject/src/main/resources/leaderboard.xml");
 //        File fXmlFile = new File("D:\\Temp\\Studia\\javaprojectwww\\src\\main\\resources\\leaderboard.xml");
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = null;
         List<Vector> leaderboardUsers = new ArrayList<>();
+        HttpSession session = request.getSession();
         try {
             dBuilder = dbFactory.newDocumentBuilder();
+
             Document doc = dBuilder.parse(fXmlFile);
+            Element usersElements = (Element) doc.getElementsByTagName("leaderboard");
+            Element newUser = doc.createElement("user");
+            newUser.appendChild(doc.createTextNode((String) session.getAttribute("login")));
+            newUser.appendChild(doc.createTextNode((String) session.getAttribute("points")));
+            usersElements.appendChild(newUser);
             doc.getDocumentElement().normalize();
             NodeList nodeList = doc.getElementsByTagName("user");
             for (int i = 0; i < nodeList.getLength(); i++) {
