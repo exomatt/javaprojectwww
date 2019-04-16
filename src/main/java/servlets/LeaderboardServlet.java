@@ -41,13 +41,7 @@ public class LeaderboardServlet extends HttpServlet {
         HttpSession session = request.getSession();
         try {
             dBuilder = dbFactory.newDocumentBuilder();
-
             Document doc = dBuilder.parse(fXmlFile);
-            Element usersElements = (Element) doc.getElementsByTagName("leaderboard");
-            Element newUser = doc.createElement("user");
-            newUser.appendChild(doc.createTextNode((String) session.getAttribute("login")));
-            newUser.appendChild(doc.createTextNode((String) session.getAttribute("points")));
-            usersElements.appendChild(newUser);
             doc.getDocumentElement().normalize();
             NodeList nodeList = doc.getElementsByTagName("user");
             for (int i = 0; i < nodeList.getLength(); i++) {
@@ -66,6 +60,20 @@ public class LeaderboardServlet extends HttpServlet {
             synchronized (getServletContext()) {
                 sc.setAttribute("leaderboardList", leaderboardUsers);
             }
+        } catch (ParserConfigurationException | SAXException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(fXmlFile);
+            Element rootElement = (Element) doc.getElementsByTagName(
+                    "leaderboard").item(0);
+            Element newUser = doc.createElement("user");
+            newUser.appendChild(doc.createTextNode((String) session.getAttribute("login")));
+            newUser.appendChild(doc.createTextNode((String) session.getAttribute("points")));
+            rootElement.appendChild(newUser);
+
         } catch (ParserConfigurationException | SAXException e) {
             e.printStackTrace();
         }
