@@ -1,13 +1,13 @@
 package servlets;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -19,11 +19,16 @@ public class GameServlet extends HttpServlet {
         Integer lives;
         String word;
         String wordMask;
+        boolean isreveled = false;
         synchronized (session) {
             word = (String) session.getAttribute("word");
             wordMask = (String) session.getAttribute("wordMask");
             String letter = (String) request.getParameter("letter");
             boolean rightAnswer = false;
+            if (letter.length() == 0) {
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("game.jsp");
+                requestDispatcher.forward(request, response);
+            }
             if (letter.length() == word.length()) {
                 if (letter.equals(word)) {
                     rightAnswer = true;
@@ -34,6 +39,9 @@ public class GameServlet extends HttpServlet {
                 for (int i = 0; i < word.length(); i++) {
                     if (word.charAt(i) == letter.charAt(0)) {
                         rightAnswer = true;
+                        if (wordMask.charAt(i * 2) == word.charAt(i)) {
+                            isreveled = true;
+                        }
                         updatedWordMask.setCharAt(i * 2, word.charAt(i));
                     }
                 }
@@ -47,11 +55,17 @@ public class GameServlet extends HttpServlet {
             Integer points = (Integer) session.getAttribute("points");
             if (!rightAnswer) {
                 lives--;
+                points--;
                 session.setAttribute("lives", lives);
+                session.setAttribute("points", points);
 
             } else {
-                points++;
-                session.setAttribute("points", points);
+                if (!isreveled) {
+                    points++;
+                    session.setAttribute("points", points);
+                } else {
+                    session.setAttribute("points", points);
+                }
             }
         }
         if (lives == 0 || word.equals(wordMask.replaceAll("\\s", ""))) {
