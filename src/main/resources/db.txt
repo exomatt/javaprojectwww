@@ -1,4 +1,6 @@
-pl,kot
 eng,cat
 pl,pies
 eng,dog
+pl,chleb
+pl,ptak
+eng,bird
