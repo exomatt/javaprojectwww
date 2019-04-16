@@ -1,5 +1,8 @@
 package utils;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -41,7 +44,7 @@ public class FileManager {
         return words;
     }
 
-    private static List<String[]> getLinesFromFile() {
+    public static List<String[]> getLinesFromFile() {
         List<String> readLines = null;
         try {
             //TODO - niech kazdy zmieni sobie patha na swojego
@@ -55,5 +58,34 @@ public class FileManager {
             splittedLines.add(strings);
         });
         return splittedLines;
+    }
+
+    public static String[] getWordDetails(String word) {
+        List<String[]> linesFromFile = getLinesFromFile();
+        for (String[] line : linesFromFile) {
+            if (line[1].matches(word)) return line;
+        }
+        return null;
+    }
+
+    public static void deleteWordFromFile(String word) {
+        List<String[]> linesFromFile = getLinesFromFile();
+        for (String[] line : linesFromFile) {
+            if (line[1].matches(word)) {
+                linesFromFile.remove(line);
+                break;
+            }
+        }
+
+        File file = new File("E:\\Repozytoria\\javaprojectwww\\src\\main\\resources\\db.txt");
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file, false));
+            for (String[] line : linesFromFile) {
+                writer.write(line[0] + "," + line[1] + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

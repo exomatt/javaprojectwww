@@ -12,7 +12,7 @@
     <title>AdminPanel</title>
 </head>
 <body>
-<form action="admin/process" method="post">
+<form action="process" method="post">
     <table>
         <c:forEach var="word" items="${sessionScope.listOfWords}">
             <tr>
