@@ -22,6 +22,8 @@ public class LoginServlet extends HttpServlet {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
             requestDispatcher.forward(request, response);
         }
+        String login = getInitParameter("login");
+        String adminpass = getInitParameter("password");
         HttpSession session = request.getSession();
         UserRepo userRepo = new UserRepo();
         User byUsername = userRepo.getByUsername(username);
@@ -30,14 +32,13 @@ public class LoginServlet extends HttpServlet {
                 synchronized (session) {
                     session.setAttribute("login", username);
                 }
+                response.sendRedirect("game");
+                return;
             } else {
                 RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
                 requestDispatcher.forward(request, response);
             }
-        }
-        String login = getInitParameter("login");
-        String adminpass = getInitParameter("password");
-        if (username.equals(login) && password.equals(adminpass)) {
+        } else if (username.equals(login) && password.equals(adminpass)) {
             synchronized (session) {
                 session.setAttribute("login", "admin");
             }
