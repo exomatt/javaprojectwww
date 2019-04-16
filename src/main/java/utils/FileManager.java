@@ -1,5 +1,8 @@
 package utils;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -9,6 +12,12 @@ import java.util.List;
 public class FileManager {
     public static final int PL = 1;
     public static final int ENG = 0;
+
+    //TODO - niech kazdy zmieni sobie patha na swojego
+    private static final String path = "E:\\Repozytoria\\javaprojectwww\\src\\main\\resources\\db.txt";
+//    private static final String path = "/home/exomat/Pulpit/javaproject/src/main/resources/db.txt";
+//    private static final String path = "D:\\Temp\\Studia\\javaprojectwww\\src\\main\\resources\\db.txt";
+
 
     public static List<String> getAllWords(int language) {
         List<String[]> linesFromFile = getLinesFromFile();
@@ -41,13 +50,11 @@ public class FileManager {
         return words;
     }
 
-    private static List<String[]> getLinesFromFile() {
+    public static List<String[]> getLinesFromFile() {
         List<String> readLines = null;
         try {
-            //TODO - niech kazdy zmieni sobie patha na swojego
-//            readLines = Files.readAllLines(Paths.get("E:\\Repozytoria\\javaprojectwww\\src\\main\\resources\\db.txt"));
-            readLines = Files.readAllLines(Paths.get("/home/exomat/Pulpit/javaproject/src/main/resources/db.txt"));
-//            readLines = Files.readAllLines(Paths.get("D:\\Temp\\Studia\\javaprojectwww\\src\\main\\resources\\db.txt"));
+
+            readLines = Files.readAllLines(Paths.get(path));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -57,5 +64,45 @@ public class FileManager {
             splittedLines.add(strings);
         });
         return splittedLines;
+    }
+
+    public static String[] getWordDetails(String word) {
+        List<String[]> linesFromFile = getLinesFromFile();
+        for (String[] line : linesFromFile) {
+            if (line[1].matches(word)) return line;
+        }
+        return null;
+    }
+
+    public static void deleteWordFromFile(String word) {
+        List<String[]> linesFromFile = getLinesFromFile();
+        for (String[] line : linesFromFile) {
+            if (line[1].matches(word)) {
+                linesFromFile.remove(line);
+                break;
+            }
+        }
+        File file = new File(path);
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file, false));
+            for (String[] line : linesFromFile) {
+                writer.write(line[0] + "," + line[1] + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void addNewWordToFile(String[] word) {
+
+        File file = new File(path);
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+            writer.write(word[0] + "," + word[1] + "\n");
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
