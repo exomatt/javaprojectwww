@@ -14,7 +14,7 @@ public class ResultServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         if (request.getParameter("continue") != null) {
-            int lifes = (int) session.getAttribute("lifes");
+            int lifes = (int) session.getAttribute("lives");
             if (lifes == 0) {
                 synchronized (session) {
                     session.removeAttribute("points");
@@ -26,12 +26,13 @@ public class ResultServlet extends HttpServlet {
         if (request.getParameter("return") != null) {
             synchronized (session) {
                 session.removeAttribute("points");
-                session.removeAttribute("lifes");
+                session.removeAttribute("lives");
             }
             response.sendRedirect("leaderboard");
+        } else {
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("result.jsp");
+            requestDispatcher.forward(request, response);
         }
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("result.jsp");
-        requestDispatcher.forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
