@@ -87,12 +87,23 @@ public class LeaderboardServlet extends HttpServlet {
             DOMSource source = new DOMSource(doc);
             StreamResult result = new StreamResult(new File(fXmlFile.getAbsolutePath()));
             transformer.transform(source, result);
+
+            Vector newUserVector = new Vector();
+            newUserVector.add(session.getAttribute("login"));
+            newUserVector.add((int) session.getAttribute("points"));
+            ServletContext sc = this.getServletContext();
+            leaderboardUsers.add(newUserVector);
+            leaderboardUsers.sort(Comparator.comparingInt(o -> Integer.parseInt((String) o.get(1))));
+            Collections.reverse(leaderboardUsers);
+            synchronized (getServletContext()) {
+                sc.setAttribute("leaderboardList", leaderboardUsers);
+            }
         } catch (ParserConfigurationException | SAXException | TransformerException e) {
             e.printStackTrace();
         }
 
         session.setAttribute("points", 0);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("leaderboard.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("leaderboard");
         requestDispatcher.forward(request, response);
     }
 
