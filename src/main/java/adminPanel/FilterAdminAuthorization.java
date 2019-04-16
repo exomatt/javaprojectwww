@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(filterName = "FilterAdminAuthorization", urlPatterns = "/admin")
+@WebFilter(filterName = "FilterAdminAuthorization")
 public class FilterAdminAuthorization implements Filter {
     public void destroy() {
     }

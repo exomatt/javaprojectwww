@@ -14,9 +14,9 @@ public class FileManager {
     public static final int ENG = 0;
 
     //TODO - niech kazdy zmieni sobie patha na swojego
-//    private static final String path = "E:\\Repozytoria\\javaprojectwww\\src\\main\\resources\\db.txt";
+    private static final String path = "E:\\Repozytoria\\javaprojectwww\\src\\main\\resources\\db.txt";
 //    private static final String path = "/home/exomat/Pulpit/javaproject/src/main/resources/db.txt";
-    private static final String path = "D:\\Temp\\Studia\\javaprojectwww\\src\\main\\resources\\db.txt";
+//    private static final String path = "D:\\Temp\\Studia\\javaprojectwww\\src\\main\\resources\\db.txt";
 
 
     public static List<String> getAllWords(int language) {

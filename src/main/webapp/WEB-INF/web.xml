@@ -8,4 +8,13 @@
 		  http://java.sun.com/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
     <display-name>Archetype Created Web Application</display-name>
+
+
+    <filter-mapping>
+        <filter-name>FilterAdminAuthorization</filter-name>
+        <url-pattern>/admin</url-pattern>
+        <url-pattern>/process</url-pattern>
+        <url-pattern>/addNewWord</url-pattern>
+        <url-pattern>/updateWord</url-pattern>
+    </filter-mapping>
 </web-app>
