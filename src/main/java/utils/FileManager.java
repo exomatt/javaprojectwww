@@ -46,7 +46,8 @@ public class FileManager {
         try {
             //TODO - niech kazdy zmieni sobie patha na swojego
 //            readLines = Files.readAllLines(Paths.get("E:\\Repozytoria\\javaprojectwww\\src\\main\\resources\\db.txt"));
-            readLines = Files.readAllLines(Paths.get("/home/exomat/Pulpit/javaproject/src/main/resources/db.txt"));
+//            readLines = Files.readAllLines(Paths.get("/home/exomat/Pulpit/javaproject/src/main/resources/db.txt"));
+            readLines = Files.readAllLines(Paths.get("D:\\Temp\\Studia\\javaprojectwww\\src\\main\\resources\\db.txt"));
         } catch (IOException e) {
             e.printStackTrace();
         }
