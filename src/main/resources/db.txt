@@ -2,5 +2,10 @@ eng,cat
 pl,pies
 eng,dog
 pl,chleb
+eng,bread
 pl,ptak
 eng,bird
+pl,biurko
+eng,desk
+pl,okno
+eng,window
